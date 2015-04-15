@@ -1,0 +1,41 @@
+//
+   Created by Alexandre on 13/04/2015.
+
+extends layout
+block content
+   if (edit)
+      h1 Modifier une licorne
+   else
+      h1 Créer une nouvelle licorne
+   form(method='post')
+      div.form-group
+         label Name :
+         input(type='text', name='name', required, value=unicorn != null ? unicorn.name : "").form-control
+         if (errors && errors.name)
+            span.help-block Nom de licorne existant
+      div.form-group
+         label Date de naissance :
+         input(type='date', name='birth', required, value=unicorn != null ? unicorn.birth : "").form-control
+      div.form-group
+         label Poids :
+         input(type='number', name='weight', required, value=unicorn != null ? unicorn.weight : "", min = 0).form-control
+         if (errors && errors.weight)
+            span.help-block Poids invalide
+      div.form-group
+         label Genre
+         div.radio
+         input(type='radio', name='gender', value='m', required, checked = unicorn != null && unicorn.gender == 'm')
+         | Male
+         input(type='radio', name='gender', value='f', checked = unicorn != null && unicorn.gender == 'f')
+         | Femelle
+      div.form-group
+         label Aliments favoris (séparés par des virgules)
+         input(type='text', name='lovesString', value=unicorn != null && unicorn.loves != null ? unicorn.loves.join(',') : "").form-control
+      div.form-group
+         label Vampire tués :
+         input(type='number', name='vampires', value=unicorn != null ? unicorn.vampires : "", min=0).form-control
+         if (errors && errors.vampires)
+            span.error Total invalide
+
+      input(type='submit')
+

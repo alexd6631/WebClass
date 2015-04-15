@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    h1 Bienvenue dans UniCRUD
+
+    if unicorns.length > 0
+        table.table.table-bordered
+            tr
+                th Nom
+                th Date de naissance
+                th Genre
+                th Actions
+            each unicorn in unicorns
+                tr
+                    td= unicorn.name
+                    td= dateFormat(unicorn.birth, 'dd/mm/yyyy')
+                    td= unicorn.gender
+                    td
+                        form(method='post', action='/unicorns/delete/' + unicorn._id, onsubmit='return confirm("Voulez vous supprimer la licorne")')
+                            a(href='/unicorns/edit/' + unicorn._id).btn.btn-default Editer
+                            input(type='submit', value='Supprimer').btn.btn-danger
+    else
+        p Pas de licornes
+
+    a(href='/unicorns/create').btn.btn-primary Créer une nouvelle licorne
+
+
