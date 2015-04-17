@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 
 var unicorns = require('./routes/unicorns');
+var unicornsApi = require('./routes/unicornsApi');
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/unicorns', unicorns);
+app.use('/api/unicorns', unicornsApi);
 
 app.get("/", function (req, res) {
   res.redirect('/unicorns');
