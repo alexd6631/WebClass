@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head><title></title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="javascripts/angular.js"></script>
+    <script src="javascripts/service.js"></script>
+    <script src="javascripts/ctrl.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -10,7 +13,62 @@
         <div class="navbar-header"><a href="/unicorns" class="navbar-brand">UniCRUD</a></div>
     </div>
 </nav>
-<div class="container">
+<div class="container"
+     style="padding-top: 50px;"
+     ng-app="app"
+     ng-controller="UnicornsCtrl">
+
+    <table class="table table-bordered table-responsive">
+        <tr>
+            <th>Nom</th>
+            <th>Poids</th>
+            <th>Genre</th>
+            <th>Actions</th>
+        </tr>
+        <tr ng-repeat="unicorn in unicorns">
+            <td>
+                {{unicorn.name}}
+            </td>
+            <td>
+                {{unicorn.weight}} kg
+            </td>
+            <td>
+                {{unicorn.gender}}
+            </td>
+            <td>
+                <button class="btn btn-primary" ng-click="edit(unicorn)">Editer</button>
+                <button class="btn btn-danger">Supprimer</button>
+            </td>
+        </tr>
+    </table>
+
+    <button class="btn btn-success" ng-click="newLicorn()">Créer une licorne</button>
+
+    <form name="unicornForm" ng-show="unicorn">
+        <div class="form-group">
+            <label>Name :</label>
+            <input class="form-control" type="text" name="name" required ng-model="unicorn.name">
+        </div>
+        <div class="form-group">
+            <label>Date de naissance :</label>
+            <input class="form-control" type="date" name="birth" ng-model="unicorn.birth"  required>
+        </div>
+        <div class="form-group">
+            <label>Poids :</label>
+            <input type="number" name="weight" required value="250" min="0" ng-model="unicorn.weight">
+        </div>
+        <div class="form-group">
+            <label>Genre</label>
+            <div class="radio"></div>
+            <input type="radio" name="gender" ng-model="unicorn.gender" value="m" required checked>Male
+            <input type="radio" name="gender" ng-model="unicorn.gender" value="f">Femelle
+        </div>
+        <div class="form-group"><label>Vampire tués :</label>
+            <input type="number" name="vampires" value="197" min="0" ng-model="unicorn.vampires">
+
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="save()">Enregister</button>
+    </form>
 
 </div>
 </body>
